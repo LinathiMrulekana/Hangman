@@ -102,7 +102,8 @@ namespace HangmanGameConsole
             Console.WriteLine("======================================");
 
             Random random = new Random();
-            List<string> wordDict = new List<string> { "sunflower", "sunrise","groes","howdy"};
+            List<string> wordDict = new List<string> { "sunflower", "sunrise","groes","howdy" ,"beautiful", "mom","sheep",
+            "dog","car","pizza","mat","class","bees" ,"hate", "love","bored","december","may","marry","yes"};
             int index = random.Next(wordDict.Count);
             string randomWord = wordDict[index];            
 
