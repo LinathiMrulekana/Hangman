@@ -14,18 +14,68 @@ namespace Hangman.Core.Game
 
         public void Run()
         {
-            _renderer.Render(5, 5, 6);
 
-            Console.SetCursorPosition(0, 13);
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.Write("Your current guess: ");
-            Console.WriteLine("--------------");
-            Console.SetCursorPosition(0, 15);
+            string[] names = { "bees", "monkey", "cobra", "beautifull", "cute", "earth", "mars", "classes", "nine", "one", "house", "life", "bored", "me", "none" };
+           Console.WriteLine("There are "+names.Length+" names");
 
-            Console.ForegroundColor = ConsoleColor.Green;
+            int livesLeft = 6;
 
-            Console.Write("What is your next guess: ");
-            var nextGuess = Console.ReadLine();
+            Random random = new Random();
+            int guessIndex = random.Next(names.Length);
+
+            string wordToGuess = names[guessIndex];
+
+            string guessProgress = string.Empty;
+
+            for(int i = 0; i < wordToGuess.Length; i++)
+            {
+                guessProgress = guessProgress + "_";
+            }
+
+
+            while (true)
+            {
+
+                _renderer.Render(5, 5, livesLeft);
+
+                Console.SetCursorPosition(0, 13);
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write("Your current guess: ");
+                Console.WriteLine(guessProgress);
+                Console.SetCursorPosition(0, 15);
+
+                Console.ForegroundColor = ConsoleColor.Green;
+
+                Console.Write("What is your next guess: ");
+                string nextGuess = Console.ReadLine();
+
+                char[] guessProgressArray = guessProgress.ToCharArray();
+
+                bool correctGuess = false;
+
+                for (int index = 0; index < wordToGuess.Length; index++)
+                {
+                    if (wordToGuess[index] == nextGuess[0] && livesLeft != 0)
+                    {
+                        guessProgressArray[index] = wordToGuess[index];
+                        correctGuess = true;
+                        Console.WriteLine("YOU WIN");
+                        
+                    }
+                }
+                guessProgress = new string(guessProgressArray);
+
+                if (!correctGuess)
+                {
+                    livesLeft--;
+                    
+                }
+                if (livesLeft == 0)
+                {
+                    Console.WriteLine("YOU LOSE");
+                }
+            }
+            
         }
 
     }
